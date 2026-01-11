@@ -47,7 +47,7 @@ export const useContentStore = defineStore('content', () => {
   // API base URL - для GitHub Pages используйте полный URL вашего API
   const API_BASE_URL = import.meta.env.VITE_API_URL || 
     (import.meta.env.PROD 
-      ? 'https://your-api-url.com/api'  // Замените на ваш production API URL
+      ? 'https://safb-admin.vercel.app/api'  // Vercel API URL
       : 'http://localhost:3000/api')
 
   // Load content from API
