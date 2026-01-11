@@ -30,8 +30,7 @@
   "version": 2,
   "functions": {                  ← Только functions
     "api/index.js": {
-      "runtime": "@vercel/node",  ← Добавлен runtime
-      "maxDuration": 30
+      "maxDuration": 30           ← Только maxDuration, runtime определяется автоматически
     }
   },
   "routes": [
@@ -47,8 +46,12 @@
 
 1. ✅ **Удален `builds`** - больше не используется
 2. ✅ **Оставлен только `functions`** - современный подход
-3. ✅ **Добавлен `runtime`** в `functions` - явно указывает runtime
+3. ✅ **Удален `runtime`** - Vercel автоматически определяет runtime для файлов в `api/`
 4. ✅ **Сохранен `maxDuration`** - лимит времени выполнения
+
+## ⚠️ Важно о runtime
+
+Для файлов в папке `api/` Vercel **автоматически определяет** runtime (Node.js), поэтому указывать его не нужно. Если указать `runtime` без версии, возникнет ошибка: "Function Runtimes must have a valid version".
 
 ## 🚀 Следующие шаги
 
