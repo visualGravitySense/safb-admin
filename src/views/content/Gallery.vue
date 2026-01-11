@@ -105,7 +105,7 @@ import axios from 'axios'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 
   (import.meta.env.PROD 
-    ? 'https://your-api-url.com/api'  // Замените на ваш production API URL
+    ? 'https://safb-admin.vercel.app/api'  // Vercel API URL
     : 'http://localhost:3000/api')
 // Remove /api from base URL and add /api/upload
 const baseUrl = API_BASE_URL.replace('/api', '') || 'http://localhost:3000'
@@ -170,7 +170,7 @@ const getImageUrl = (imagePath) => {
   // If it starts with /uploads, it's a local file
   if (imagePath.startsWith('/uploads')) {
     const apiBaseUrl = API_BASE_URL.replace('/api', '') || 
-      (import.meta.env.PROD ? 'https://your-api-url.com' : 'http://localhost:3000')
+      (import.meta.env.PROD ? 'https://safb-admin.vercel.app' : 'http://localhost:3000')
     return `${apiBaseUrl}${imagePath}`
   }
   // Otherwise return as is (might be relative path)
