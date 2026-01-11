@@ -73,15 +73,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// Remove /api prefix from requests (Vercel adds it automatically)
-app.use((req, res, next) => {
-  if (req.url.startsWith('/api')) {
-    req.url = req.url.replace('/api', '') || '/'
-    req.path = req.path.replace('/api', '') || '/'
-  }
-  next()
-})
-
 // Serve uploaded files statically (only works locally, not on Vercel)
 if (!isVercel) {
   app.use('/uploads', express.static(UPLOADS_DIR))
@@ -323,7 +314,16 @@ app.get('/health', (req, res) => {
 // Export for Vercel serverless functions
 // Vercel automatically routes /api/* to this function
 // The routes in Express should not include /api prefix
-export default app
+export default (req, res) => {
+  // Remove /api prefix if present
+  if (req.url && req.url.startsWith('/api')) {
+    req.url = req.url.replace('/api', '') || '/'
+  }
+  if (req.path && req.path.startsWith('/api')) {
+    req.path = req.path.replace('/api', '') || '/'
+  }
+  return app(req, res)
+}
 
 // For local development, start the server
 if (!isVercel && import.meta.url === `file://${process.argv[1]}`) {
