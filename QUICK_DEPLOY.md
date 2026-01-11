@@ -29,7 +29,23 @@ GitHub Pages **не поддерживает** серверный код!
 
 API нужно развернуть отдельно. Варианты:
 
-### Вариант A: Railway (самый простой)
+### ✅ Вариант A: Vercel (рекомендуется, уже настроено!)
+
+Если вы уже задеплоили на Vercel (как в вашем случае):
+
+1. Получите URL вашего Vercel API (например: `https://safb-admin.vercel.app`)
+2. Создайте файл `.env.production` в папке `dashboard/`:
+   ```env
+   VITE_API_URL=https://safb-admin.vercel.app/api
+   ```
+3. Пересоберите проект: `npm run build:gh-pages`
+4. Запушьте изменения и задеплойте на GitHub Pages
+
+**Готово!** Dashboard будет использовать ваш Vercel API.
+
+Подробнее см. [NEXT_STEPS.md](./NEXT_STEPS.md)
+
+### Вариант B: Railway
 
 1. Зарегистрируйтесь на https://railway.app
 2. Создайте новый проект
@@ -43,7 +59,7 @@ API нужно развернуть отдельно. Варианты:
    - Name: `VITE_API_URL`
    - Value: `https://safb-api.railway.app/api`
 
-### Вариант B: Render
+### Вариант C: Render
 
 1. Зарегистрируйтесь на https://render.com
 2. Создайте новый Web Service
@@ -54,7 +70,7 @@ API нужно развернуть отдельно. Варианты:
    - **Start Command**: `node index.js`
 5. Получите URL и добавьте secret как выше
 
-### Вариант C: Heroku
+### Вариант D: Heroku
 
 ```bash
 cd dashboard/server

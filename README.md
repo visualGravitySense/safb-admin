@@ -4,7 +4,9 @@ Dashboard для управления контентом сайта Siim Aimla F
 
 🌐 **Live Demo:** [GitHub Pages](https://visualGravitySense.github.io/safb-admin/)
 
-📦 **Деплой на GitHub Pages:** См. [QUICK_DEPLOY.md](./QUICK_DEPLOY.md) для быстрой инструкции
+📦 **Деплой:**
+- **Dashboard на GitHub Pages:** См. [QUICK_DEPLOY.md](./QUICK_DEPLOY.md) для быстрой инструкции
+- **API на Vercel:** См. [VERCEL_QUICK_START.md](./VERCEL_QUICK_START.md) для быстрого старта или [VERCEL_DEPLOY.md](./VERCEL_DEPLOY.md) для подробной инструкции
 
 ## Установка
 
@@ -73,12 +75,26 @@ Dashboard позволяет управлять:
 
 ## Хранение данных
 
-✅ **Данные сохраняются через REST API** в файл `server/data/content.json`
+✅ **Данные сохраняются через REST API**
+
+### Локальная разработка
+- Данные сохраняются в файл `server/data/content.json`
+- Файлы загружаются в `server/uploads/`
+
+### Production (Vercel)
+- API развернут на Vercel как serverless functions
+- ⚠️ **Важно:** Текущая реализация использует временное хранилище `/tmp`, которое не сохраняет данные между вызовами
+- Для production рекомендуется использовать:
+  - **Vercel Blob Storage** для файлов
+  - **База данных** (MongoDB, Supabase) для контента
+  - См. [VERCEL_DEPLOY.md](./VERCEL_DEPLOY.md) для подробностей
 
 ### API Endpoints
 - `GET /api/content` - получить весь контент
 - `GET /api/content/:section` - получить секцию
 - `PUT /api/content/:section` - обновить секцию
+- `POST /api/upload` - загрузить изображение
+- `DELETE /api/upload/:filename` - удалить изображение
 - `GET /api/health` - проверка работы API
 
 Подробнее см. [API_GUIDE.md](./API_GUIDE.md)
@@ -120,9 +136,21 @@ dashboard/
 
 Подробнее см. [UPLOAD_GUIDE.md](./UPLOAD_GUIDE.md)
 
+## Деплой
+
+### Dashboard на GitHub Pages
+1. Настройте переменную окружения `VITE_API_URL` с URL вашего Vercel API
+2. Следуйте инструкциям в [QUICK_DEPLOY.md](./QUICK_DEPLOY.md)
+
+### API на Vercel
+1. Следуйте инструкциям в [VERCEL_QUICK_START.md](./VERCEL_QUICK_START.md)
+2. После деплоя обновите `VITE_API_URL` в dashboard
+
 ## Следующие шаги
 
 1. ✅ Настроить API для сохранения данных
 2. ✅ Добавить загрузку изображений
-3. ⏳ Добавить предпросмотр изменений
-4. ⏳ Настроить экспорт данных для основного сайта
+3. ✅ Настроить деплой API на Vercel
+4. ⏳ Настроить постоянное хранилище для production (Vercel Blob Storage / База данных)
+5. ⏳ Добавить предпросмотр изменений
+6. ⏳ Настроить экспорт данных для основного сайта
